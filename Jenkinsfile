@@ -10,7 +10,7 @@ pipeline {
         stage("Running containers from dockerhub image") {
             steps {
             sh """
-            docker build rahulwagh17/jhooq-docker-demo:jhooq-docker-demo
+            docker pull rahulwagh17/jhooq-docker-demo:jhooq-docker-demo
             """
             }
         }
