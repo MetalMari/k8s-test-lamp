@@ -34,7 +34,11 @@ pipeline {
             }
         }
         stage("Kubernetes deployment"){
-        sh 'kubectl apply -f k8s-test-deployment.yml'
+            steps {
+                sh """
+                kubectl apply -f k8s-test-deployment.yml
+                """
+            }
         }
     }
 }
