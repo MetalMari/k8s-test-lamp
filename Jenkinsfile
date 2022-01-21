@@ -33,16 +33,16 @@ pipeline {
                 }
             }
         }
-        stage("Create cube config file"){
+        stage('test AWS credentials') {
             steps {
-                withAWS(region: 'us-east-2', credentials: 'AWS_credentials'){
-                sh """
-                aws eks --region us-east-2 update-kubeconfig --name jenkinstest
-                """
-                sh """
-                kubectl apply -f k8s-test-deployment.yml
-                """}
+                withAWS(credentials: 'AWS_credentials', region: 'us-east-2') {
+                    sh 'echo "hello Jenkins">hello.txt'
+                    s3Upload acl: 'Private', bucket: 'devopslee', file: 'hello.txt'
+                    s3Download bucket: 'devopslee', file: 'downloadedHello.txt', path: 'hello.txt'
+                    sh 'cat downloadedHello.txt'
+                }
             }
         }
+    }
     }
 }
