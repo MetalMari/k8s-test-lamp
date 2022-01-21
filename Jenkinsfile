@@ -38,14 +38,10 @@ pipeline {
                 withAWS(region: 'us-east-2', credentials: 'AWS_credentials'){
                 sh """
                 aws eks --region us-east-2 update-kubeconfig --name jenkinstest
-                """}
-            }
-        }
-        stage("Kubernetes deployment"){
-            steps {
+                """
                 sh """
                 kubectl apply -f k8s-test-deployment.yml
-                """
+                """}
             }
         }
     }
