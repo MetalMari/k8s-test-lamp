@@ -24,8 +24,8 @@ node {
             }
         }
         stage("Kubernetes deployment"){
-                sh '
+                sh """
                 kubectl apply -f k8s-test-deployment.yml
-                '
+                """
         }
 }
